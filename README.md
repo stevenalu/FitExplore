@@ -138,10 +138,10 @@ The Docker images are publicly available on my Docker Hub Account https://hub.do
 
 - lb-01: https://hub.docker.com/r/stevenalu/fitexplorer-lb-01
 
-Once you are in the root of this repo when you clone it:
+Once you are in the root of this repo when you clone it where:
 
 ```
-git clone https://github.com/stevenalu/FitExplore
+https://github.com/waka-man/web_infra_lab
 ```
 
 Then:
@@ -206,8 +206,9 @@ curl -i http://localhost:8082
 
 ```
 
-**Screenshot below shows the live process:**
+**Screenshot below shows the live process and demo when FitExplorer application hosted on web-01 running on local machine:**
 <img width="1919" height="1079" alt="Screenshot 2025-07-27 001137" src="https://github.com/user-attachments/assets/32715d90-ba7c-4025-8ce1-d20135b81c81" />
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/86eacf32-18d3-4eb0-8325-de973fbacd91" />
 
 
 
