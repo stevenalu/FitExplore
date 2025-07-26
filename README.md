@@ -63,7 +63,7 @@ Important Disclaimer: This application is for educational purposes only and shou
   
  **3. DEMO**
  --------------------
- **A link to a demo video (demonstrating how to use application locally and how to access it online)** : 
+ **A link to a demo video (demonstrating how to use application locally and how to access it online)** :  https://www.loom.com/share/f94aa310382e403280a177e5f6d1b552?sid=8a69d8c7-916d-4472-89de-8de15842f907
  
  Open this link to access FitExplorer; http://web-01.yamal.tech or http://web-01.yamal.tech/home 
  
