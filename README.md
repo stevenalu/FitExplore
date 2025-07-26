@@ -206,8 +206,7 @@ curl -i http://localhost:8082
 
 ```
 
-**Screenshots below show the live process:**
-<img width="1918" height="1079" alt="Screenshot 2025-07-26 233453" src="https://github.com/user-attachments/assets/811a565c-b80e-4403-9967-58cfce089e03" />
+**Screenshot below shows the live process:**
 <img width="1919" height="1079" alt="Screenshot 2025-07-27 001137" src="https://github.com/user-attachments/assets/32715d90-ba7c-4025-8ce1-d20135b81c81" />
 
 
