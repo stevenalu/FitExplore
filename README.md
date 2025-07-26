@@ -65,7 +65,7 @@ Important Disclaimer: This application is for educational purposes only and shou
  --------------------
  **A link to a demo video (demonstrating how to use application locally and how to access it online)** : [https://drive.google.com/file/d/1kOi_aiEHSykTmvyIAZEdMFm_C68cGeyq/view?usp=sharing](url)
  
- Open this link to access FitExplorer; [http://yamal.tech](url)
+ Open this link to access FitExplorer; http://yamal.tech
  
  **4. Technology used:**
  ---------------------------------
@@ -74,7 +74,7 @@ Important Disclaimer: This application is for educational purposes only and shou
       -CSS: for styling
       -JavaScripts
 - API Interactions:
-     - ExerciseDB API from[ https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb](url)
+     - ExerciseDB API from https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb
 - Deployment:
     Deployed on nginx on web-01 server and github pages
 
@@ -125,8 +125,9 @@ only one web server:
 **9. CREDITS and ACKNOWLEDGEMENT**
 ----------------------------------------------------
 
-API USED: ** ExerciseDB API from RapidAPI**
-  [https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb](url)
-  [https://edb-docs.up.railway.app/docs/authentication](url)
+API USED: **ExerciseDB API from RapidAPI**
+
+  https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb
+  https://edb-docs.up.railway.app/docs/authentication
 Visit the links above for it's documentation.
     
