@@ -10,8 +10,9 @@
 5. API Integration
 6. Local Development Setup
 7. Deployment (_Prerequisites_ , _Web Server Configuration_,  _GitHub Pages setup_)
-8. Challenges and Solutions
-9. Credits and Acknowledgments
+8. DOCKER DEPLOYMENT
+9. Challenges and Solutions
+10. Credits and Acknowledgments
 -----------------------------------------------------------------------------------------------------
 
 **1. OVERVIEW**
@@ -123,13 +124,100 @@ only one web server:
   - A domain used, was created from DotTech domain where I used to link up with the IP_Address so if you vist my domain you will get the same by visiting via IP_Address.
     
 
-**8. CHALLENGES AND SOLUTIONS**
+**8. DOCKER DEPLOYMENT**
+This section explains how the FitExplorer web application and load balancer are containerized, built, deployed, and tested using Docker.
+
+Docker Hub Image Details
+The Docker images are publicly available on my Docker Hub Account https://hub.docker.com/r/stevenalu :
+
+- web-01: https://hub.docker.com/r/stevenalu/fitexplorer-web-01
+
+- web-02: https://hub.docker.com/r/stevenalu/fitexplorer-web-02
+
+- lb-01: https://hub.docker.com/r/stevenalu/fitexplorer-lb-01
+
+Once you are in the root of this repo when you clone it:
+
+```
+git clone https://github.com/stevenalu/FitExplore
+```
+
+Then:
+
+```
+docker pull stevenalu/fitexplorer-web-01:latest
+docker pull stevenalu/fitexplorer-web-02:latest
+docker pull stevenalu/fitexplorer-lb-01:latest
+```
+
+**How to Build: Instructions (Local)**
+Follow this:
+```
+docker build -t stevenalu/fitexplorer-web-01:latest -f web/Dockerfile ./web
+docker build -t stevenalu/fitexplorer-web-02:latest -f web/Dockerfile ./web
+docker build -t stevenalu/fitexplorer-lb-01:latest -f lb/Dockerfile ./lb
+```
+
+**Run Instructions (on Web01 & Web02)**
+SSHed into each web server and ran:
+```
+docker pull stevenalu/fitexplorer-web-01:latest  # on web-01
+docker pull stevenalu/fitexplorer-web-02:latest  # on web-02
+
+docker run -d --name fitexplorer-web --restart unless-stopped -p 8080:8080 stevenalu/fitexplorer-web-01:latest  # web-01
+docker run -d --name fitexplorer-web --restart unless-stopped -p 8080:8080 stevenalu/fitexplorer-web-02:latest  # web-02
+```
+
+**Load Balancer Configuration (on lb-01)**
+I configured HAProxy (/etc/haproxy/haproxy.cfg) with:
+```
+global
+    daemon
+    maxconn 256
+
+defaults
+    mode http
+    timeout connect 5s
+    timeout client  50s
+    timeout server  50s
+
+frontend http-in
+    bind *:80
+    default_backend servers
+
+backend servers
+    balance roundrobin
+    server web01 172.20.0.11:80 check
+    server web02 172.20.0.12:80 check
+    http-response set-header X-Served-By %[srv_name]
+```
+
+And after i hasd to **reload haproxy** inside lb-01 after SSHed into it:
+```
+sudo service haproxy restart
+```
+
+**Testing steps & evidence**
+From my host machine, I repeatedly ran:
+```
+curl -i http://localhost:8082
+
+```
+
+**Screenshots below show the live process:**
+<img width="1918" height="1079" alt="Screenshot 2025-07-26 233453" src="https://github.com/user-attachments/assets/811a565c-b80e-4403-9967-58cfce089e03" />
+<img width="1919" height="1079" alt="Screenshot 2025-07-27 001137" src="https://github.com/user-attachments/assets/32715d90-ba7c-4025-8ce1-d20135b81c81" />
+
+
+
+**9. CHALLENGES AND SOLUTIONS**
 -------------------------------------------------
 **API Rate Limiting**
      Challenge: RapidAPI imposes request limits on free tier accounts.
      solution: upgrading to a paid plan that could be solution in the future
 
-**9. CREDITS and ACKNOWLEDGEMENT**
+
+**10. CREDITS and ACKNOWLEDGEMENT**
 ----------------------------------------------------
 
 API USED: **ExerciseDB API from RapidAPI**
