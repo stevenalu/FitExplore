@@ -63,9 +63,9 @@ Important Disclaimer: This application is for educational purposes only and shou
   
  **3. DEMO**
  --------------------
- **A link to a demo video (demonstrating how to use application locally and how to access it online)** : [https://drive.google.com/file/d/1kOi_aiEHSykTmvyIAZEdMFm_C68cGeyq/view?usp=sharing](url)
+ **A link to a demo video (demonstrating how to use application locally and how to access it online)** : 
  
- Open this link to access FitExplorer; http://yamal.tech
+ Open this link to access FitExplorer; http://web-01-yamal.tech or http://web-01-yamal.tech/home 
  
  **4. Technology used:**
  ---------------------------------
@@ -117,7 +117,7 @@ only one web server:
   - **Web-01** (where nginx is installed, and I configured /etc/nginx/sites_available/default, this file is where I hosted my application for instance: I put all my files used to make application including; HTML, CSS, and JS, all were put inside this /var/www/html so that it can be accessed by simply visiting the IP_Address of web-01)
     
 - **GitHub Pages**:
-  - Application is also alternatively, deployed on github pages as it's only way it can be deployed with HTTPS because load balancing with my servers couldn't work due to the issues with **web-02 and lb-01** (Link to deployed app on GitHub Pages: )
+  - Application is also alternatively, deployed on github pages as it's only way it can be deployed with HTTPS because load balancing with my servers couldn't work due to the issues with **web-02 and lb-01** (Link to deployed app on GitHub Pages: https://stevenalu.github.io/fitexplorer/) 
   
 **7.2 Domain name**
   - A domain used, was created from DotTech domain where I used to link up with the IP_Address so if you vist my domain you will get the same by visiting via IP_Address.
