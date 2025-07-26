@@ -95,9 +95,16 @@ The application integrates with the ExerciseDB API from RapidAPI to access a com
 
 Follow these steps to set up the project for local development:
  **Step 1**:
-  Clone this repo: FitExplore.
-   by: git clone [https://github.com/stevenalu/FitExplore](url)
-   then move inside it by: cd FitExplore 
+  Clone this repo: **FitExplore**.
+   by:
+   ```
+   git clone https://github.com/stevenalu/FitExplore
+   ```
+
+   then move inside it by:
+   
+   ```cd FitExplore ```
+   
  **Step 2**:
    OPEN THE PROJECT:
      You can simply open the index.html file in your browser as this is a purely front-end application
