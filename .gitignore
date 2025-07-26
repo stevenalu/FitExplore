@@ -1,0 +1,3 @@
+// ignore config.js as I don't wanna expose the key and host
+
+config.js

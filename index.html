@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitExplorer - Exercise Database</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Configuriguration with custom theme colors for better UI
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5D5CDE',           
+                        'primary-dark': '#4A4BC7',   
+                        'accent': '#10B981',         
+                        'warning': '#F59E0B',        
+                        'danger': '#EF4444'          
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300 min-h-screen">
+    
+    <!-- Enhanced header with better gradient and spacing -->
+    <header class="bg-gradient-to-r from-primary via-primary-dark to-purple-600 shadow-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-6">
+                <!-- App branding with improved design -->
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-white/90 backdrop-blur rounded-xl flex items-center justify-center shadow-lg">
+                        <span class="text-primary font-bold text-2xl">💪</span>
+                    </div>
+                    <div>
+                        <h1 class="text-3xl font-bold text-white">FitExplorer</h1>
+                        <p class="text-white/80 text-sm">Your Exercise Companion</p>
+                    </div>
+                </div>
+                
+                <!-- Enhanced control buttons -->
+                <div class="flex items-center space-x-6">
+                    <!-- How to use button with better styling -->
+                    <button onclick="showHowToUse()" 
+                            class="flex items-center space-x-2 text-white/90 hover:text-white transition-colors bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg backdrop-blur">
+                        <span class="text-lg">ℹ️</span>
+                        <span class="hidden sm:inline text-sm font-medium">How to Use</span>
+                    </button>
+                    
+                    <!-- Enhanced dark mode toggle -->
+                    <button onclick="toggleDarkMode()" 
+                            class="text-white/90 hover:text-white transition-colors bg-white/10 hover:bg-white/20 p-3 rounded-lg backdrop-blur">
+                        <span id="darkModeIcon" class="text-xl">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Enhanced educational disclaimer -->
+    <div class="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/30 dark:to-orange-900/30 border-l-4 border-amber-400 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-start space-x-3">
+                <span class="text-amber-600 text-xl">⚠️</span>
+                <div>
+                    <p class="text-sm text-amber-800 dark:text-amber-200 font-medium">
+                        <strong>Educational Use Only:</strong> This application is designed for educational purposes and fitness exploration.
+                    </p>
+                    <p class="text-xs text-amber-700 dark:text-amber-300 mt-1">
+                        Always consult with a healthcare professional before starting any exercise program. Proper form and safety should be your top priority.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main application container -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Enhanced search and filter section -->
+        <div class="mb-10 space-y-6">
+            <!-- Search bar with improved styling -->
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <span class="text-gray-400 text-xl">🔍</span>
+                </div>
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Search exercises by name, target muscle, equipment, or body part..." 
+                    class="w-full pl-12 pr-6 py-4 text-base border-2 border-gray-200 dark:border-gray-600 rounded-2xl focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none bg-white dark:bg-gray-800 shadow-lg transition-all duration-300 text-visible"
+                    oninput="filterExercises()"
+                >
+            </div>
+
+            <!-- Enhanced filter controls with better spacing -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Body part filter -->
+                <div class="space-y-2">
+                    <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Body Part</label>
+                    <select id="bodyPartFilter" onchange="filterExercises()" 
+                            class="w-full px-4 py-3 text-base border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-primary focus:outline-none bg-white dark:bg-gray-800 filter-select text-visible">
+                        <option value="">All Body Parts</option>
+                    </select>
+                </div>
+
+                <!-- Equipment filter -->
+                <div class="space-y-2">
+                    <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Equipment</label>
+                    <select id="equipmentFilter" onchange="filterExercises()" 
+                            class="w-full px-4 py-3 text-base border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-primary focus:outline-none bg-white dark:bg-gray-800 filter-select text-visible">
+                        <option value="">All Equipment</option>
+                    </select>
+                </div>
+
+                <!-- Target muscle filter -->
+                <div class="space-y-2">
+                    <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Target Muscle</label>
+                    <select id="targetFilter" onchange="filterExercises()" 
+                            class="w-full px-4 py-3 text-base border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-primary focus:outline-none bg-white dark:bg-gray-800 filter-select text-visible">
+                        <option value="">All Target Muscles</option>
+                    </select>
+                </div>
+
+                <!-- Sort options -->
+                <div class="space-y-2">
+                    <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Sort By</label>
+                    <select id="sortSelect" onchange="sortExercises()" 
+                            class="w-full px-4 py-3 text-base border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:border-primary focus:outline-none bg-white dark:bg-gray-800 filter-select text-visible">
+                        <option value="name">Exercise Name</option>
+                        <option value="bodyPart">Body Part</option>
+                        <option value="equipment">Equipment Type</option>
+                        <option value="target">Target Muscle</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Results counter with better visibility -->
+            <div class="flex justify-between items-center bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-700">
+                <span id="resultsCount" class="text-sm font-medium text-gray-600 dark:text-gray-300">Loading exercises...</span>
+                <div id="apiStatus" class="text-xs px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400">
+                    Connecting to API...
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced loading indicator -->
+        <div id="loadingIndicator" class="flex flex-col items-center justify-center py-20 space-y-4">
+            <div class="loading-spinner"></div>
+            <div class="text-center space-y-2">
+                <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-300">Loading Exercise Database</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Fetching exercises from ExerciseDB API...</p>
+            </div>
+        </div>
+
+        <!-- Enhanced error message -->
+        <div id="errorMessage" class="hidden bg-gradient-to-r from-red-50 to-pink-50 dark:from-red-900/30 dark:to-pink-900/30 border border-red-200 dark:border-red-700 rounded-2xl p-8 text-center shadow-lg">
+            <div class="text-6xl mb-4">⚠️</div>
+            <h3 class="text-xl font-bold text-red-600 dark:text-red-400 mb-3">Unable to Load Exercise Database</h3>
+            <p class="text-red-500 dark:text-red-300 mb-6 max-w-md mx-auto">
+                There was a problem connecting to the ExerciseDB API. This could be due to network issues, API rate limits, or server maintenance.
+            </p>
+            <div class="space-y-3">
+                <button onclick="loadExercises()" 
+                        class="inline-flex items-center space-x-2 bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-xl transition-all duration-300 font-medium">
+                    <span>🔄</span>
+                    <span>Try Again</span>
+                </button>
+                <p class="text-xs text-red-400 dark:text-red-300">
+                    Sample exercises will be shown if API remains unavailable
+                </p>
+            </div>
+        </div>
+
+        <!-- Enhanced exercise grid with better responsiveness -->
+        <div id="exerciseGrid" class="exercise-grid grid gap-8 hidden">
+            <!-- Exercise cards will be populated here dynamically -->
+        </div>
+    </div>
+
+    <!-- Enhanced How to Use Modal -->
+    <div id="howToUseModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-900 dark:text-white">How to Use FitExplorer</h2>
+                        <p class="text-gray-600 dark:text-gray-400 mt-1">Your guide to exploring exercises effectively</p>
+                    </div>
+                    <button onclick="hideHowToUse()" 
+                            class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 text-3xl p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+                        ×
+                    </button>
+                </div>
+                
+                <div class="space-y-6 text-gray-700 dark:text-gray-300">
+                    <div class="bg-blue-50 dark:bg-blue-900/30 p-6 rounded-xl border border-blue-200 dark:border-blue-700">
+                        <h3 class="font-bold text-xl mb-3 flex items-center space-x-2 text-blue-700 dark:text-blue-300">
+                            <span>🔍</span>
+                            <span>Search & Filter Exercises</span>
+                        </h3>
+                        <ul class="space-y-2 text-sm">
+                            <li>• Use the search bar to find exercises by name, target muscle, equipment, or body part</li>
+                            <li>• Apply specific filters to narrow down results by category</li>
+                            <li>• Combine multiple filters for precise exercise selection</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-green-50 dark:bg-green-900/30 p-6 rounded-xl border border-green-200 dark:border-green-700">
+                        <h3 class="font-bold text-xl mb-3 flex items-center space-x-2 text-green-700 dark:text-green-300">
+                            <span>📋</span>
+                            <span>Sort & Organize</span>
+                        </h3>
+                        <p class="text-sm">Sort exercises alphabetically or by category (body part, equipment, target muscle) for better organization.</p>
+                    </div>
+                    
+                    <div class="bg-purple-50 dark:bg-purple-900/30 p-6 rounded-xl border border-purple-200 dark:border-purple-700">
+                        <h3 class="font-bold text-xl mb-3 flex items-center space-x-2 text-purple-700 dark:text-purple-300">
+                            <span>💪</span>
+                            <span>Exercise Information</span>
+                        </h3>
+                        <ul class="space-y-2 text-sm">
+                            <li>• Each card displays exercise name, target muscle, body part, and required equipment</li>
+                            <li>• Click any exercise card to view the demonstration GIF in full size</li>
+                            <li>• Exercise images show proper form and movement patterns</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-yellow-50 dark:bg-yellow-900/30 p-6 rounded-xl border border-yellow-200 dark:border-yellow-700">
+                        <h3 class="font-bold text-xl mb-3 flex items-center space-x-2 text-yellow-700 dark:text-yellow-300">
+                            <span>🌙</span>
+                            <span>Personalization</span>
+                        </h3>
+                        <p class="text-sm">Toggle between light and dark themes using the moon/sun icon in the header for comfortable viewing.</p>
+                    </div>
+                    
+                    <div class="bg-red-50 dark:bg-red-900/30 p-6 rounded-xl border border-red-200 dark:border-red-700">
+                        <h3 class="font-bold text-xl mb-3 flex items-center space-x-2 text-red-700 dark:text-red-300">
+                            <span>⚠️</span>
+                            <span>Safety & Best Practices</span>
+                        </h3>
+                        <ul class="space-y-2 text-sm">
+                            <li>• Always warm up before exercising and cool down afterward</li>
+                            <li>• Start with lighter weights and progress gradually</li>
+                            <li>• Focus on proper form over heavy weights</li>
+                            <li>• Consult a fitness professional for personalized guidance</li>
+                            <li>• Listen to your body and rest when needed</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+                    <p class="text-center text-sm text-gray-500 dark:text-gray-400">
+                        FitExplorer uses the ExerciseDB API to provide comprehensive exercise information
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="config.js"></script>
+</body>
+</html>
