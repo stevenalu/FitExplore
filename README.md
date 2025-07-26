@@ -125,6 +125,8 @@ only one web server:
     
 
 **8. DOCKER DEPLOYMENT**
+
+
 This section explains how the FitExplorer web application and load balancer are containerized, built, deployed, and tested using Docker.
 
 Docker Hub Image Details
