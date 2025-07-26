@@ -130,5 +130,6 @@ API USED: **ExerciseDB API from RapidAPI**
   https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb
   
   https://edb-docs.up.railway.app/docs/authentication
+  
 Visit the links above for it's documentation.
     
