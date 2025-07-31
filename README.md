@@ -66,7 +66,7 @@ Important Disclaimer: This application is for educational purposes only and shou
  --------------------
  **A link to a demo video (demonstrating how to use application locally and how to access it online)** :  https://www.loom.com/share/f94aa310382e403280a177e5f6d1b552?sid=8a69d8c7-916d-4472-89de-8de15842f907
  
- Open this link to access FitExplorer; http://web-01.yamal.tech or http://web-01.yamal.tech/home 
+ Open this link to access FitExplorer; https://www.yamal.tech 
  
  **4. Technology used:**
  ---------------------------------
@@ -114,8 +114,18 @@ Follow these steps to set up the project for local development:
 ------------------------------------
 **7.1 Prerequisites**
 
-only one web server:
-  - **Web-01** (where nginx is installed, and I configured /etc/nginx/sites_available/default, this file is where I hosted my application for instance: I put all my files used to make application including; HTML, CSS, and JS, all were put inside this /var/www/html so that it can be accessed by simply visiting the IP_Address of web-01)
+Two web servers **which I just received on 31st july 2025 t 11:50 PM**:
+  - **Web-01** and **Web-02** (where nginx is installed, and I configured /etc/nginx/sites_available/default, this file is where I hosted my application for instance: I put all my files used to make application including; HTML, CSS, and JS, all were put inside this /var/www/html so that it can be accessed by visiting the IP_Address)
+    
+Load balancer:
+  -Through **lb-01** (where **haproxy** is installed **to distribute the requests by roundrobin** through those two servers. And those were done through configuring an haproxy config file ( /etc/haproxy/haproxy.cfg ), So you can access it through linking up to the IP_address of this lb-01)
+  
+**7.2 Domain name**
+  - A domain used, was created from DotTech domain (**www.yamal.tech**) where I used to link up with the IP_Address so if you vist my domain you will get the same by visiting via IP_Address.
+    
+**7.3 SSL certificate**
+  -  From lb-01 , I created a certificate using **certbot**, issued by Letsencrypt and signed by it. So, it can be secure as it is.
+      Now, this link is secured: https://www.yamal.tech
     
 - **GitHub Pages**:
   - Application is also alternatively, deployed on github pages as it's only way it can be deployed with HTTPS because load balancing with my servers couldn't work due to the issues with **web-02 and lb-01** (Link to deployed app on GitHub Pages: https://stevenalu.github.io/fitexplorer/) 
